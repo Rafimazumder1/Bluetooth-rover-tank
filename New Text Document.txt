@@ -1,0 +1,80 @@
+//Raihan habib Rafi Mazumder
+// 191-35-2768
+
+#include<SoftwareSerial.h> 
+SoftwareSerial bluetooth_module (11,12); //Rx , Tx
+char  Data;
+const int motor1=3; //left motors forward
+const int motor2=4;  //left motors backward
+const int MOT2a=7;  //right motors forward
+const int MOT2b=9;  //right motors backward
+ int ledF=5;    // LED FRONT
+ int ledB=8;   //LED BOTTOM
+void setup() {
+  bluetooth_module.begin (9600); //bluetooth start
+  Serial.begin(9600); //serial read
+pinMode(3,OUTPUT); 
+pinMode(6,OUTPUT);   
+pinMode(7,OUTPUT);   
+pinMode(9,OUTPUT);   
+pinMode(5,OUTPUT); 
+pinMode(8,OUTPUT);
+
+Serial.begin(9600);
+}
+void loop() {
+if(Serial.available()){
+  Data = Serial.read();
+  Serial.println(Data);
+}
+if(Data == 'A'){            //move FORWARD
+  digitalWrite(3,HIGH);
+  digitalWrite(6,LOW);
+  digitalWrite(7,HIGH);
+  digitalWrite(9,LOW);
+}
+else if(Data == 'B'){      //move BACKWORD
+  digitalWrite(3,LOW);
+  digitalWrite(6,HIGH);
+  digitalWrite(7,LOW);
+  digitalWrite(9,HIGH);
+}
+else if(Data == 'C'){      //turn left 
+  digitalWrite(3,LOW);
+  digitalWrite(6,LOW);
+  digitalWrite(7,HIGH);
+  digitalWrite(9,LOW);
+}
+else if(Data == 'D'){      //turn right
+  digitalWrite(3,HIGH);
+  digitalWrite(6,LOW);
+  digitalWrite(7,LOW);
+  digitalWrite(9,LOW);
+}
+else if(Data == 'G'){      // reverse and turn right motors
+  digitalWrite(3,HIGH);  
+  digitalWrite(6,LOW);
+  digitalWrite(7,LOW);
+  digitalWrite(9,LOW);
+}
+else if(Data == 'H'){      //REVERSE AND TURN LEFT
+   digitalWrite(3,LOW);
+  digitalWrite(6,LOW);
+  digitalWrite(7,HIGH);
+  digitalWrite(9,LOW);
+}
+else if(Data == 'E'){      //STOP all motors stoP
+  digitalWrite(3,LOW);
+  digitalWrite(6,LOW);
+  digitalWrite(7,LOW);
+  digitalWrite(9,LOW);
+}
+else if(Data == 'J'){      // FRONT LED ON
+  digitalWrite(5,HIGH);
+  digitalWrite(6,LOW);
+}
+else if(Data == 'K'){      //BOTTOM LED OFF
+  digitalWrite(5,LOW);
+  digitalWrite(6,HIGH);
+}
+}
